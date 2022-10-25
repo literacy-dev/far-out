@@ -1,0 +1,1148 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+
+@media screen and (max-width: 950px)
+and (orientation: portrait){
+  #rotateRec {
+    display: block;
+    text-align: center;
+    margin: 2.5% 0;
+    width: 100%;
+    font-style: italic;
+  }
+
+  body {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background-color: black;
+    background-position: center;
+    background-size: 100%;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 1px;
+    visibility: hidden;
+  }
+
+
+  #mainWindow {
+    position: relative;
+    margin: 1%;
+    width: 98%;
+    height: 98%;
+    display: block
+  }
+
+  #mainWindow .exitButton {
+    position: absolute;
+    top: 0;
+    right: 1vw;
+    background: none;
+    border: none;
+    border-radius: none;
+    font-size: 175%;
+    color: yellow;
+    z-index: 15;
+    cursor: pointer;
+  }
+
+  #mainWindow #gameWindow {
+    width: 100%;
+    max-height: 100vh;
+    height: auto;
+
+  }
+
+  #mainWindow #gameWindow #canvas {
+    width: 100%;
+    height: auto;
+    border: thin outset silver;
+    border-radius: 0.15rem;
+  }
+
+  #startContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 10;
+  }
+
+  #startMenu {
+    position: relative;
+    display: block;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: 10vh 37vw;
+    background: lightskyblue;
+    border-radius: 1rem;
+  }
+
+  #startMenu .startMenuButton {
+    display: block;
+    font-size: 150%;
+    font-family: monospace;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    padding: 1.5%;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #startMenu .startMenuButton:hover {
+    background-color: yellow;
+}
+
+  #startMenu #startButton {
+    font-size: 225%;
+    font-weight: bold;
+    padding-top: 2.5%;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #gameWindow #restartButton {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 225%;
+    text-align: center;
+  }
+
+  #startMenu #creditsButton {
+    padding-bottom: 2.5%;
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  #creditsButton #closeCredits {
+    display: none;
+  }
+
+  #gameControls {
+    position: relative;
+    margin: 5% auto;
+    background: lightskyblue;
+    border: thin outset darkgray;
+    border-radius: 50%;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+    "... up ..."
+    "fireL middle fireR"
+    "... down ...";
+    width: 11rem;
+    height: 11rem;
+  }
+
+  #gameControls button {
+    font-family: monospace;
+    font-size: 315%;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background: gainsboro;
+    border: 0.15rem outset silver;
+  }
+
+  #gameControls #up {
+    grid-area: up;
+    border-radius: 50% 50% 0 0;
+  }
+
+  #gameControls #middleSquare {
+    grid-area: middle;
+  }
+
+  #gameControls #down {
+    grid-area: down;
+    border-radius: 0 0 50% 50%;
+  }
+
+  #gameControls #fireButtonL {
+    grid-area: fireL;
+    border-radius: 50% 0 0 50%;
+  }
+
+  #gameControls #fireButtonR {
+    grid-area: fireR;
+    border-radius: 0 50% 50% 0;
+  }
+
+  #gameControls .upDownButton {
+  }
+
+  #gameControls .fireButton {
+  }
+
+
+  #gameDirections {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    font-size: 120%;
+    width: 100%;
+    min-height: 98vh;
+    padding: 7.5% 0 2.5%;
+  }
+
+  #gameDirections #closeDirections {
+    display: none;
+  }
+
+  #gameDirections h2 {
+    text-align: center;
+    font-size: 160%;
+  }
+
+  #gameDirections #directionsBody {
+    display: block;
+    width: 100%;
+    margin: 7.5% 0 0;
+    font-size: 100%;
+  }
+
+  #gameDirections h3 {
+    text-align: center;
+    padding: 1%;
+    font-size: 125%;
+    color: yellow;
+  }
+
+  #gameDirections h4 {
+    font-size: 100%;
+    text-transform: uppercase;
+  }
+
+  #gameDirections ul {
+    display: block;
+  }
+
+  #gameDirections ul li {
+    display: block;
+    padding: 1% 0;
+  }
+
+  #objectiveInfo {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 1.5%;
+    width: 97%;
+  }
+
+  #objectiveInfo h3 {
+    font-size: 140%;
+  }
+
+  #objectiveInfo #goal {
+    display: block;
+    width: 100%;
+    font-size: 100%;
+    text-align: center;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #objectiveInfo #goal p {
+    width: 90%;
+    font-size: 115%;
+    margin: 0 auto 1.5%;
+  }
+
+  #objectiveInfo #specialItems {
+    display: block;
+    width: 100%;
+    margin: 4.5% 0;
+    font-size: 100%;
+    text-align: center;
+  }
+
+  #objectiveInfo #specialItems h4 {
+    padding: 1.5% 0 0.5%;
+  }
+
+  #objectiveInfo #specialItems ul {
+    display: flex;
+    justify-content: center;
+    padding: 1.5% 0 0;
+  }
+
+  #objectiveInfo #specialItems ul li {
+    display: block;
+    padding: 0 5%;
+    font-size: 110%;
+  }
+
+  #objectiveInfo #specialItems ul li img {
+    display: block;
+    width: auto;
+    height: 5rem;
+    padding-top: 1.5%;
+  }
+
+  #gameDirections #controlDirections {
+    position: relative;
+    display: flex;
+    text-align: left;
+    justify-content: space-around;
+    width: 97%;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 10% 1.5% 1.5%;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #gameDirections #controlDirections h3 {
+    position: absolute;
+    top: 0;
+  }
+
+  #gameDirections #controlDirections ul li {
+    font-size: 110%;
+  }
+
+  #gameDirections #controlDirections h4 {
+    text-align: left;
+    font-size: 100%;
+  }
+
+  #keyboardDirections {
+    display: block;
+    width: auto;
+    font-size: 100%;
+    margin-bottom: 5%;
+  }
+
+  #keysList {
+    display: block;
+  }
+
+  #mobileDirections {
+    display: block;
+    width: auto;
+  }
+
+  #creditsPage {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    grid-area: canvas;
+    width: 100%;
+    min-height: 98vh;
+    padding: 2.5% 0;
+  }
+
+  #creditsPage #closeCredits {
+    display: none;
+  }
+
+  #creditsPage h2 {
+    text-align: center;
+    padding: 2.5% 0 0;
+  }
+
+  #creditsPage h3 {
+    font-size: 135%;
+    text-align: center;
+    padding: 1.5% 0;
+  }
+
+  #creditsPage #designDetails {
+    text-align: center;
+    margin: 0 0 2.5% 0;
+  }
+
+  #creditsPage #designDetails h3 {
+    font-size: 125%;
+    font-weight: normal;
+    font-style: italic;
+    padding-bottom: 1%
+  }
+
+  #creditsPage #designDetails #gameLangs {
+  }
+
+  #creditsPage #designDetails #gameLangs li {
+    display: inline;
+    font-size: 135%;
+    padding: 0 1.5%;
+  }
+
+  #creditsPage #imageSources {
+    background: black;
+    border-radius: 2rem;
+    width: 75%;
+    margin: 5% auto;
+    padding: 2.5%;
+  }
+
+  #creditsPage #creditsList {
+    display: block;
+    list-style-type: none;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+
+  #creditsPage #creditsList li {
+    list-style-type: none;
+    font-size: 125%;
+    padding: 2.5% 0;
+  }
+}
+
+
+@media screen and (max-width: 950px)
+and (orientation: landscape) {
+  #rotateRec {
+    display: none;
+  }
+
+  #keyboardInfo {
+    display: none;
+  }
+
+  body {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    background-color: black;
+    background-position: center;
+    background-size: 100%;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 1px;
+    visibility: hidden;
+  }
+
+
+  #mainWindow {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  #mainWindow .exitButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1vh 1.5vw 0 0;
+    background: none;
+    border: none;
+    border-radius: none;
+    font-size: 175%;
+    color: yellow;
+    z-index: 15;
+    cursor: pointer;
+  }
+
+  #mainWindow #gameWindow {
+    position: relative;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+
+  }
+
+  #mainWindow #gameWindow #canvas {
+    position: relative;
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+    border: thin outset silver;
+    border-radius: 0.15rem;
+    margin: 0 auto;
+  }
+
+  #startContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 10;
+  }
+
+  #startMenu {
+    position: relative;
+    display: block;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: 25vh 37vw;
+    background: lightskyblue;
+    border-radius: 1rem;
+  }
+
+  #startMenu .startMenuButton {
+    display: block;
+    font-size: 175%;
+    font-family: monospace;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    padding: 1.5%;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #startMenu .startMenuButton:hover {
+    background-color: yellow;
+}
+
+  #startMenu #startButton {
+    font-size: 250%;
+    font-weight: bold;
+    padding-top: 2.5%;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #gameWindow #restartButton {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 200%;
+    text-align: center;
+  }
+
+  #startMenu #creditsButton {
+    padding-bottom: 2.5%;
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  #creditsButton #closeCredits {
+    display: none;
+  }
+
+
+  #gameControls {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0 0 15vh 5vw;
+    background: lightskyblue;
+    border: thin outset darkgray;
+    border-radius: 50%;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+    "... up ..."
+    "fireL middle fireR"
+    "... down ...";
+    width: 10rem;
+    height: 10rem;
+  }
+
+  #gameControls button {
+    font-family: monospace;
+    font-size: 325%;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background: silver;
+    border: 0.15rem outset darkgray;
+  }
+
+  #gameControls #up {
+    grid-area: up;
+    border-radius: 50% 50% 0 0;
+  }
+
+  #gameControls #middleSquare {
+    grid-area: middle;
+  }
+
+  #gameControls #down {
+    grid-area: down;
+    border-radius: 0 0 50% 50%;
+  }
+
+  #gameControls #fireButtonL {
+    grid-area: fireL;
+    border-radius: 50% 0 0 50%;
+  }
+
+  #gameControls #fireButtonR {
+    grid-area: fireR;
+    border-radius: 0 50% 50% 0;
+  }
+
+  #gameControls .upDownButton {
+  }
+
+  #gameControls .fireButton {
+  }
+
+
+  #gameDirections {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    font-size: 120%;
+    width: 100%;
+    min-height: 98vh;
+    padding: 7.5% 0 5%;
+  }
+
+  #gameDirections #closeDirections {
+    display: none;
+  }
+
+  #gameDirections h2 {
+    text-align: center;
+    font-size: 150%;
+  }
+
+  #gameDirections #directionsBody {
+    display: flex;
+    width: 100%;
+    margin: 5% 0 0;
+  }
+
+  #gameDirections h3 {
+    font-size: 135%;
+    text-align: center;
+    padding: 1% 0 2.5%;
+    color: yellow;
+  }
+
+  #gameDirections h4 {
+    text-transform: uppercase;
+    font-size: 100%;
+  }
+
+  #gameDirections ul {
+    display: block;
+    text-align: left;
+  }
+
+  #gameDirections ul li {
+    display: block;
+    padding: 1% 0;
+  }
+
+  #objectiveInfo {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 1.5%;
+    width: 60%;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #objectiveInfo #goal {
+    display: block;
+    width: 100%;
+    font-size: 100%;
+    text-align: center;
+  }
+
+  #objectiveInfo #goal p {
+    width: 90%;
+    font-size: 120%;
+    margin: 0 auto 1.5%;
+  }
+
+  #objectiveInfo #specialItems {
+    display: block;
+    width: 100%;
+    margin-top: 7.5%;
+    font-size: 100%;
+    text-align: center;
+  }
+
+  #objectiveInfo #specialItems h4 {
+    padding: 1% 0;
+  }
+
+  #objectiveInfo #specialItems ul {
+    display: flex;
+    justify-content: center;
+    padding: 1.5% 0 0;
+  }
+
+  #objectiveInfo #specialItems ul li {
+    display: block;
+    padding: 0 2.5%;
+    font-size: 115%;
+  }
+
+  #objectiveInfo #specialItems ul li img {
+    display: block;
+    width: auto;
+    height: 6rem;
+    padding-top: 2.5%;
+  }
+
+  #gameDirections #controlDirections {
+    display: block;
+    width: 25%;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 1.5% 2.5%;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #gameDirections #controlDirections h4 {
+    text-align: left;
+  }
+
+  #gameDirections #controlDirections ul li {
+    font-size: 115%;
+  }
+
+  #keyboardDirections {
+    display: block;
+    width: auto;
+    text-align: center;
+    margin: 5% 0 7.5%;
+  }
+
+  #keysList {
+    display: block;
+    width: 100%;
+  }
+
+  #mobileDirections {
+    display: block;
+    width: 100%;
+  }
+
+  #creditsPage {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    grid-area: canvas;
+    width: 100%;
+    min-height: 98vh;
+    padding: 2.5% 0;
+  }
+
+  #creditsPage #closeCredits {
+    display: none;
+  }
+
+  #creditsPage h2 {
+    text-align: center;
+    padding: 2.5% 0 0;
+  }
+
+  #creditsPage h3 {
+    font-size: 135%;
+    text-align: center;
+    padding: 1.5% 0;
+  }
+
+  #creditsPage #designDetails {
+    text-align: center;
+    margin: 0 0 2.5% 0;
+  }
+
+  #creditsPage #designDetails h3 {
+    font-size: 125%;
+    font-weight: normal;
+    font-style: italic;
+    padding-bottom: 1%
+  }
+
+  #creditsPage #designDetails #gameLangs {
+  }
+
+  #creditsPage #designDetails #gameLangs li {
+    display: inline;
+    font-size: 135%;
+    padding: 0 1.5%;
+  }
+
+  #creditsPage #imageSources {
+    background: black;
+    border-radius: 2rem;
+    width: 50%;
+    margin: 5% auto;
+    padding: 2.5%;
+  }
+
+  #creditsPage #creditsList {
+    display: block;
+    list-style-type: none;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+
+  #creditsPage #creditsList li {
+    list-style-type: none;
+    font-size: 125%;
+    padding: 2.5% 0;
+  }
+}
+
+
+
+@media screen and (min-width: 951px) {
+  #rotateRec {
+    display: none;
+  }
+
+  #keyboardInfo {
+    display: block;
+  }
+
+  body {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: black;
+    background-position: center;
+    background-size: 100%;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 1px;
+    visibility: hidden;
+  }
+
+
+  #mainWindow {
+    position: relative;
+    margin: 1%;
+    width: 98%;
+    height: 98%;
+    display: block;
+  }
+
+  #mainWindow .exitButton {
+    position: absolute;
+    top: 0;
+    right: 1vw;
+    background: none;
+    border: none;
+    border-radius: none;
+    font-size: 225%;
+    color: yellow;
+    z-index: 15;
+    cursor: pointer;
+  }
+
+  #gameWindow {
+    display: block;
+    width: 100%;
+  }
+
+  #gameWindow #canvas {
+    grid-area: canvas;
+    width: 100%;
+    border: thin outset silver;
+    border-radius: 0.15rem;
+  }
+
+  #gameWindow #restartButton {
+    display: none;
+  }
+
+  #gameWindow #gameControls {
+    display: none;
+  }
+
+  #gameWindow #gameControls button {
+    display: none;
+  }
+
+  #gameWindow #startContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 10;
+  }
+
+  #gameWindow #startMenu {
+    position: relative;
+    display: block;
+    text-align: center;
+    width: auto;
+    height: auto;
+    margin: 27vh 37vw 0;
+    background: lightskyblue;
+    border-radius: 1rem;
+  }
+
+  #gameWindow #startMenu .startMenuButton {
+    display: block;
+    font-size: 225%;
+    font-family: monospace;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: 100%;
+    height: 100%;
+    padding: 2.5% 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  #gameWindow #startMenu .startMenuButton:hover {
+    background-color: yellow;
+}
+
+  #gameWindow #startMenu #startButton {
+    font-size: 400%;
+    font-weight: bold;
+    padding-top: 5%;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #gameWindow #startMenu #creditsButton {
+    padding-bottom: 5%;
+    border-radius: 0 0 1rem 1rem;
+  }
+
+
+  #gameDirections {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    font-size: 120%;
+    width: 100%;
+    min-height: 98vh;
+    padding: 7.5% 0 5%;
+  }
+
+  #gameDirections #closeDirections {
+    display: none;
+  }
+
+  #gameDirections h2 {
+    text-align: center;
+    font-size: 150%;
+  }
+
+  #gameDirections #directionsBody {
+    display: flex;
+    width: 100%;
+    margin: 5% 0 0;
+  }
+
+  #gameDirections h3 {
+    font-size: 135%;
+    text-align: center;
+    padding: 1% 0 2.5%;
+    color: yellow;
+  }
+
+  #gameDirections h4 {
+    text-transform: uppercase;
+    font-size: 100%;
+  }
+
+  #gameDirections ul {
+    display: block;
+    text-align: left;
+  }
+
+  #gameDirections ul li {
+    display: block;
+    padding: 1% 0;
+  }
+
+  #objectiveInfo {
+    display: block;
+    justify-content: center;
+    text-align: center;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 1.5%;
+    width: 50%;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #objectiveInfo #goal {
+    display: block;
+    width: 100%;
+    font-size: 100%;
+    text-align: center;
+  }
+
+  #objectiveInfo #goal p {
+    width: 90%;
+    font-size: 125%;
+    margin: 0 auto 1.5%;
+  }
+
+  #objectiveInfo #specialItems {
+    display: block;
+    width: 100%;
+    margin-top: 7.5%;
+    font-size: 100%;
+    text-align: center;
+  }
+
+  #objectiveInfo #specialItems h4 {
+    padding: 1% 0;
+  }
+
+  #objectiveInfo #specialItems ul {
+    display: flex;
+    justify-content: center;
+    padding: 1.5% 0 0;
+  }
+
+  #objectiveInfo #specialItems ul li {
+    display: block;
+    padding: 0 2.5%;
+    font-size: 115%;
+  }
+
+  #objectiveInfo #specialItems ul li img {
+    display: block;
+    width: auto;
+    height: 6rem;
+    padding-top: 2.5%;
+  }
+
+  #gameDirections #controlDirections {
+    display: block;
+    width: 20%;
+    font-size: 100%;
+    margin: 0 auto;
+    padding: 1.5% 2.5%;
+    background: black;
+    border-radius: 2rem;
+  }
+
+  #gameDirections #controlDirections h4 {
+    text-align: left;
+  }
+
+  #gameDirections #controlDirections ul li {
+    font-size: 115%;
+  }
+
+  #keyboardDirections {
+    display: block;
+    width: auto;
+    text-align: center;
+    margin: 5% 0 7.5%;
+  }
+
+  #keysList {
+    display: block;
+    width: 100%;
+  }
+
+  #mobileDirections {
+    display: block;
+    width: 100%;
+  }
+
+  #creditsPage {
+    display: none;
+    background: url("../images/starry-night-sky-sm.jpg");
+    grid-area: canvas;
+    width: 100%;
+    min-height: 98vh;
+    padding: 2.5% 0;
+  }
+
+  #creditsPage #closeCredits {
+    display: none;
+  }
+
+  #creditsPage h2 {
+    text-align: center;
+    padding: 2.5% 0 0;
+  }
+
+  #creditsPage h3 {
+    font-size: 135%;
+    text-align: center;
+    padding: 1.5% 0;
+  }
+
+  #creditsPage #designDetails {
+    text-align: center;
+    margin: 0 0 2.5% 0;
+  }
+
+  #creditsPage #designDetails h3 {
+    font-size: 125%;
+    font-weight: normal;
+    font-style: italic;
+    padding-bottom: 1%
+  }
+
+  #creditsPage #designDetails #gameLangs {
+  }
+
+  #creditsPage #designDetails #gameLangs li {
+    display: inline;
+    font-size: 135%;
+    padding: 0 1.5%;
+  }
+
+  #creditsPage #imageSources {
+    background: black;
+    border-radius: 2rem;
+    width: 50%;
+    margin: 5% auto;
+    padding: 2.5%;
+  }
+
+  #creditsPage #creditsList {
+    display: block;
+    list-style-type: none;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+
+  #creditsPage #creditsList li {
+    list-style-type: none;
+    font-size: 125%;
+    padding: 2.5% 0;
+  }
+}
