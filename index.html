@@ -14,34 +14,42 @@
 
 	</head>
 
-  <body>
-    <main>
+  	<body>
+  		<main>
 			<h1>FarOut</h1>
 
 			<section id="mainWindow">
+
+				<button id="restartButton" class="exitButton"
+					type="button" name="restartButton">
+					restart
+				</button>
+
+				<button id="closeDirections" class="exitButton">
+					back
+				</button>
+
+				<button id="closeCredits" class="exitButton">
+					back
+				</button>
+
 				<section id="gameWindow">
 					<canvas id="canvas"
-						width="960" height="440">
+						width="960" height="480">
 						Your browser does not support HTML5
 					</canvas>
 
-					<div id="gameControls" class="gameControls">
-						<button id="fireButtonL" class="fireButton"
-							type="button" name="fireButtonL">A</button>
+					<section id="gameControls" class="gameControls">
+						<button id="up" type="button" name="upButton" class="upDownButton"></button>
+						<button id="down" type="button" name="downButton" class="upDownButton"></button>
+						<button id="fire" type="button" name="fireButton"></button>
+					</section>
 
-						<button id="up" class="upDownButton"><i class="fa-solid fa-chevron-up"></i></button>
-						<button id="middleSquare"></button>
-						<button id="down" class="upDownButton"><i class="fa-solid fa-chevron-down"></i></button>
-
-						<button id="fireButtonR" class="fireButton"
-							type="button" name="fireButtonR">B</button>
-					</div>
-
-					<div id=startContainer>
-						<div id="startMenu">
+					<section id="startMenu">
+						<div id="startMenuWrapper">
 							<button id="startButton" class="startMenuButton"
-								type="button" name="startButton">
-								Start
+							type="button" name="startButton">
+							Start
 							</button>
 
 							<button id="directionsButton" class="startMenuButton"
@@ -50,93 +58,81 @@
 							</button>
 
 							<button id="creditsButton" class="startMenuButton"
-							  type="button" name="creditsButton">Credits
+								type="button" name="creditsButton">Credits
 							</button>
 						</div>
-
-						<button id="restartButton" class="exitButton"
-							type="button" name="restartButton">
-							<i class="fa-solid fa-arrow-rotate-right"></i>
-						</button>
-					</div>
+					</section>
 				</section>
 
 				<section id="gameDirections">
 					<h2>How to Play</h2>
-					<button id="closeDirections" class="exitButton">
-						<i class="fa-solid fa-x"></i>
-					</button>
-
-					<div id="rotateRec">
-						<p>For best experience, rotate your screen <i class="fa-solid fas-sync-alt"></i></p>
-					</div>
-
+					
 					<section id="directionsBody">
 						<div id="objectiveInfo">
 							<div id="goal">
-								<h3>Goal</h3>
-								<p>Collect star dust and meteors as your space probe
-									explores the galaxy.</p>
-								<p>Dodge UFOs, or fire meteors at them to get away.</p>
-								<p>Hang on as gravity from nearby planets pulls you along faster!</p>
-						  </div>
+								<h3>Directions</h3>
+								<p>&#128073; Collect stardust for points and meteors for ammo 
+									as your rocket explores the galaxy.</p>
+								<p>&#128073; Dodge or fire meteors at enemy UFOs 
+									while nearby forces affect your speed.</p>
+								<p>&#128073; Grab a donut to live longer*</p>
+								<p id="medicalDisclaimer">*I am not a doctor.</p>
+						  	</div>
 
 							<div id="specialItems">
-								<h4>Special Items:</h4>
+								<h4>Items:</h4>
 								<ul id="specialItemsList">
-									<li key="specialItem1">1 point<br />
+									<li key="specialItem1">
 										<img src="images/starsprite.png"
-										alt="stardust image" height="189" width="200"/>
+										alt="stardust" height="189" width="200"/>
+										1 point
 									</li>
 
-									<li key="specialItem2">ammo<br />
+									<li key="specialItem2">
 										<img src="images/meteorFall.png"
-										alt="meteor image" height="250" width="235"/>
+										alt="meteor" height="250" width="235"/>
+										ammo
 									</li>
 
-									<li key="specialItem3">extra life<br />
+									<li key="specialItem3">
 										<img src="images/donut.png"
-										alt="donut image" height="300" width="300"/>
+										alt="donut" height="300" width="300"/>
+										extra life
 									</li>
 								</ul>
 							</div>
 						</div>
 
 						<div id="controlDirections">
-							<h3>Controls</h3>
+							<h3>CONTROLS</h3>
 
-							<div id="keyboardDirections">
+							<div id="keyboardDirections" class="controlDirectionsGroup">
 								<h4>Keyboard</h4>
 
 								<ul id="keysList">
 									<li id="kUp" class="keyControl" value="0">
-									  <span id="kUpLabel" class="keyLabel">Up:</span>
-									  <span id="kUpHTML" name="keyUpValue"></span>
+									  UP: 'K'
 									</li>
 
 									<li id="kDown" class="keyControl" value="1">
-									  <span id="kDownLabel" class="keyLabel">Down:</span>
-									  <span id="kDownHTML" name="keyDownValue"></span>
+									  DOWN: 'D'
 									</li>
 
 									<li id="kAttack" class="keyControl" value="2">
-									  <span id="kAttackLabel" class="keyLabel">Attack:</span>
-									  <span id="kAttackHTML" name="keyAttackValue"></span>
+									  FIRE: 'Spacebar'
 									</li>
 								</ul>
 							</div>
 
-							<div id="mobileDirections">
-								<h4>Mobile</h4>
-								<ul>
+							<div id="mobileDirections" class="controlDirectionsGroup">
+								<h4>Touchscreen</h4>
+								<ul id="mobileDirectionsList">
 									<li key="mobile1">
-										Up: <i class="fa-solid fa-chevron-up"></i>
+										UP & DOWN: Tap top & bottom 
+										of screen behind rocket</li>
 								  </li>
-									<li key="mobile2">
-										Down: <i class="fa-solid fa-chevron-down"></i>
-									</li>
 									<li key="mobile3">
-										Attack: A / B</li>
+										FIRE: Tap anywhere in front of rocket</li>
 								</ul>
 							</div>
 						</div>
@@ -144,66 +140,52 @@
 				</section>
 
 				<section id="creditsPage">
-					<h2>CREDITS:</h2>
-
-					<button id="closeCredits" class="exitButton">
-						<i class="fa-solid fa-x"></i>
-					</button>
-
-					<div id="designDetails">
-						<h3>Game created by Caroline Reed using</h3>
-						<ul id="gameLangs">
-							<li key="lang01"><i class="fa-brands fa-html5"></i> HTML5</li>
-							<li key="lang02"><i class="fa-brands fa-css3"></i> CSS3</li>
-							<li key="lang03"><i class="fa-brands fa-js"></i> JavaScript</li>
-						</ul>
-					</div>
+					<h2>CREDITS</h2>
 
 					<div id="imageSources">
 						<h3>Images Sources</h3>
 						<ul id="creditsList">
 							<li key="cred1">
-								Space Probe image created by
-								<a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1293175">
-								OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1293175">
-								Pixabay</a>
+								Rocket by
+								<a href="https://pixabay.com/vectors/rocket-outline-icon-fire-start-4747828/">neotam</a>
+								on <a href="https://pixabay.com">Pixabay</a>
 							</li>
 
 							<li key="cred2">
-								Starry sky image created by
+								Starry sky by 
 								<a href='https://www.freepik.com/photos/star-sky'>kjpargeter</a> on <a href="https://www.freepik.com/">freepik</a>
 							</li>
 
 							<li key="cred3">
-								UFO image available on
+								UFO available on
 								<a href="https://www.freeiconspng.com/img/17278">freeiconspng.com</a>
 							</li>
 
 							<li key="cred4">
-								Stardust image created by
+								Stardust by
 								<a href="https://pixabay.com/vectors/stars-shiny-golden-christmas-152191/">
 								OpenClipart-Vectors</a> on <a href="https://www.pixabay.com/">Pixabay</a>
 							</li>
 
 							<li key="cred5">
-								Meteor image created by
+								Meteor by
 								<a href="https://www.vecteezy.com/vector-art/10313435-meteor-with-trail-of-fire-celestial-object">
 								tdsouzpro127653</a> on <a href="https://www.pixabay.com/">Vecteezy</a>
 							</li>
 
 							<li key="cred6">
-								Donut image created by
+								Donut by
 								<a href="https://pixabay.com/vectors/bakery-breakfast-cake-cartoon-6051314/">
 								davidswidjaja</a> on <a href="https://www.pixabay.com/">Pixabay</a>
 							</li>
 
 							<li key="cred7">
-								Saturn image available on
+								Saturn available on
 								<a href="https://clipart.me/saturn-clip-art-42022">clipart.me</a>
 							</li>
 
 							<li key="cred8">
-								Astronaut with donut created by
+								Astronaut with donut by
 								<a href="https://www.freepik.com/free-vector/cute-astronaut-with-doughnut-cartoon-vector-icon-illustration-science-food-icon-concept-isolated-premium-vector-flat-cartoon-style_16844024.htm">
 								catalyststuff</a> on <a href="https://www.freepik.com/">freepik</a>
 							</li>
@@ -211,6 +193,12 @@
 					<div>
 				</section>
 			</section>
-    </main>
-  </body>
+
+			<section id="rotateRec">
+				<p>For best gameplay, rotate your screen 
+					to landscape mode &#128259;
+				</p>
+			</section>
+    	</main>
+  	</body>
 </html>
