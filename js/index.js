@@ -112,13 +112,16 @@ window.onload = function () {
   var ufoInterval4;
 
   const intervals = [starInterval, fireInterval, lifeInterval, 
-    ufoInterval1, ufoInterval2, ufoInterval3, ufoInterval4
-  ];
+    ufoInterval1, ufoInterval2, ufoInterval3, ufoInterval4];
 
   // Array of game images
   var imagelist = [startPic, backdrop, rocketpic, ufopic1, ufopic2, donutpic,
     starpic, meteorfallpic, gameOverPic];
   
+
+  //-------------------------------//
+  //  CHARACTER & SPRITE CLASSES   //
+  //-------------------------------//
   
   // Rocket Player Class
   class rocketPlayer {
@@ -163,36 +166,36 @@ window.onload = function () {
 
     }
 
-   // Draw stars to collect
-   drawStar = function(rocket) {
-    context.beginPath();
-    context.drawImage(this.star, this.a, this.b, this.w, 55);
+    // Draw stars to collect
+    drawStar = function(rocket) {
+      context.beginPath();
+      context.drawImage(this.star, this.a, this.b, this.w, 55);
 
-    if (this.a > -55) {
-      this.a -= (speed * timePassed);
+      if (this.a > -55) {
+        this.a -= (speed * timePassed);
 
-      if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
+        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
+          this.a = 1200;
+          this.b = Math.floor(Math.random() * 400);
+
+          score += 1;
+          showStar = false;
+
+          if (score > 0 && score % 30 === 0) {
+            fire += 1;
+          }
+
+          if (score > 0 && score % 50 === 0) {
+            lives += 1;
+          }
+        }
+      } else if (this.a <= -55) {
         this.a = 1200;
         this.b = Math.floor(Math.random() * 400);
 
-        score += 1;
         showStar = false;
-
-        if (score > 0 && score % 30 === 0) {
-          fire += 1;
-        }
-
-        if (score > 0 && score % 50 === 0) {
-          lives += 1;
-        }
       }
-    } else if (this.a <= -55) {
-      this.a = 1200;
-      this.b = Math.floor(Math.random() * 400);
-
-      showStar = false;
     }
-  }
   }
   const star1 = new starDust(starpic, 960 , Math.floor(Math.random() * 400), 55);
 
@@ -208,30 +211,30 @@ window.onload = function () {
     }
 
     // Draw extra life donut
-   drawDonut = function(rocket) {
-    context.beginPath();
-    context.drawImage(this.donut, this.a, this.b, this.w, this.h);
+    drawDonut = function(rocket) {
+      context.beginPath();
+      context.drawImage(this.donut, this.a, this.b, this.w, this.h);
 
-    if (this.a > -50) {
-      this.a -= (speed * timePassed);
+      if (this.a > -50) {
+        this.a -= (speed * timePassed);
 
 
-      if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
+        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
+          this.a = 960;
+          this.b = Math.floor(Math.random() * 400);
+
+          lives += 1;
+          showLife = false;
+          }
+        }
+
+      else if (this.a <= -50) {
         this.a = 960;
         this.b = Math.floor(Math.random() * 400);
 
-        lives += 1;
         showLife = false;
-        }
       }
-
-    else if (this.a <= -50) {
-      this.a = 960;
-      this.b = Math.floor(Math.random() * 400);
-
-      showLife = false;
     }
-  }
   }
   const donut1 = new donutLife(donutpic, 960 , Math.floor(Math.random() * 400), 50, 55);
 
@@ -246,31 +249,31 @@ window.onload = function () {
       this.h = h;
     }
 
-   // Draw falling meteor to collect
-   drawMeteor = function(rocket) {
-    context.beginPath();
-    context.drawImage(this.meteorFall, this.a, this.b, this.w, this.h);
+    // Draw falling meteor to collect
+    drawMeteor = function(rocket) {
+      context.beginPath();
+      context.drawImage(this.meteorFall, this.a, this.b, this.w, this.h);
 
-    if (this.a > -33) {
-      this.a -= (1.5* speed * timePassed);
-      this.b += (0.5 * speed * timePassed);
+      if (this.a > -33) {
+        this.a -= (1.5* speed * timePassed);
+        this.b += (0.5 * speed * timePassed);
 
-      if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-35 && this.b <= rocket.y+50) {
+        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-35 && this.b <= rocket.y+50) {
+          this.a = Math.floor(Math.random() * 400) + 560;
+          this.b = 0;
+
+          fire += 1;
+          showFire = false;
+        }
+      }
+
+      else if (this.a < - 33 || this.b >= 480) {
         this.a = Math.floor(Math.random() * 400) + 560;
         this.b = 0;
 
-        fire += 1;
         showFire = false;
       }
     }
-
-    else if (this.a < - 33 || this.b >= 480) {
-      this.a = Math.floor(Math.random() * 400) + 560;
-      this.b = 0;
-
-      showFire = false;
-    }
-  }
   }
   const meteorFall1 = new meteorFall(meteorfallpic, Math.floor(Math.random() * 400) + 560, 0, 33, 35);
 
@@ -358,33 +361,45 @@ window.onload = function () {
   const ufo4 = new enemyUFO(ufopic2, 960, Math.floor(Math.random() * 430));
 
 
+  //------------------//
+  //  GAME CONTROLS   //
+  //------------------//
+  
   // Handle the events when up and down keyboard keys are pressed
   function keydown(event) {
+
+    // UP KEY
     if (event.code === 'KeyK') {
       dir = 1;
     }
 
+    // DOWN KEY
     if (event.code === 'KeyD') {
       dir = 2;
     }
 
+    // FIRE BUTTON
     if (fire > 0 && event.code === 'Space') {
       didFire = true;
     }
 
+    // START GAME
     if (event.code === "Enter" && loop === false) {
       hideStart();
       resetStats();
       resetSprites();
+      setSpriteIntervals();
       loop = true;
       draw();
     }
 
+    // RESTART GAME
     else if (event.code === "Enter" && loop === true) {
       loop = false;
       hideRestart();
       resetStats();
       resetSprites();
+      resetSpriteIntervals();
       startPage();
     }
   }
@@ -404,11 +419,11 @@ window.onload = function () {
   window.addEventListener("keydown", keydown);
   window.addEventListener("keyup", keyup);
 
-
   // Mobile game control buttons
   let up = document.getElementById("up");
   let down = document.getElementById("down");
 
+  // UP
   up.onmousedown = function() {
     dir = 1;
   }
@@ -417,6 +432,7 @@ window.onload = function () {
     dir = 1;
   }
 
+  // DRIFT UPWARD
   up.onmouseup = function() {
     dir = 12;
   }
@@ -425,6 +441,7 @@ window.onload = function () {
     dir = 12;
   }
 
+  // DOWN
   down.onmousedown = function() {
     dir = 2;
   }
@@ -433,6 +450,7 @@ window.onload = function () {
     dir = 2;
   }
 
+  // DRIFT DOWN
   down.onmouseup = function() {
     dir = 22;
   }
@@ -441,6 +459,15 @@ window.onload = function () {
     dir = 22;
   }
 
+  // Event listener for fire button on mobile game controls
+  fireButton.addEventListener("click", () => {
+      didFire = true;
+  });
+
+
+  //----------------//
+  //   LOAD GAME    //
+  //----------------//
 
   // Load images, handle loading message interval
   function loadGame() {
@@ -467,7 +494,6 @@ window.onload = function () {
     }
   }
   
-
   // Display loading message as images load
   function loadMsg(loadMsgText) {
     if (loadMsgText === "Loading...") {
@@ -495,7 +521,13 @@ window.onload = function () {
   }
 
 
-  // Display start page and start button
+  //----------------------//
+  //  SHOW START MENU,    //
+  //  START MENU BUTTONS, //
+  //  & HANDLE RESTART    //
+  //----------------------//
+
+  // Show START PAGE
   function startPage() {
     context.clearRect(0, 0, 960, 480);
 
@@ -504,7 +536,7 @@ window.onload = function () {
     }
 
 
-  // Display Game Over screen
+  // Show GAME OVER PAGE
   function gameOver() {
     context.clearRect(0, 0, 960, 480);
 
@@ -521,12 +553,6 @@ window.onload = function () {
   }
 
 
-  // Hide start button when game begins
-  function hideStart() {
-    startMenu.style.display = "none";
-    restartButton.style.display = "block";
-  }
-
   // Open / Close game directions page
   function toggleDirections() {
     if (document.getElementById("gameDirections").style.display === "block") {
@@ -542,6 +568,7 @@ window.onload = function () {
     }
   }
 
+
   // Open / Close credits page
   function toggleCredits() {
     if (document.getElementById("creditsPage").style.display === "block") {
@@ -555,6 +582,13 @@ window.onload = function () {
       document.getElementById("closeCredits").style.display = "block";
       document.getElementById("canvas").style.display = "none";
     }
+  }
+
+
+  // Hide start button when game begins
+  function hideStart() {
+    startMenu.style.display = "none";
+    restartButton.style.display = "block";
   }
 
   // Hide 'Restart' button
@@ -576,23 +610,157 @@ window.onload = function () {
 
   // Reset sprite coordinates to game start values
   function resetSprites() {
+    // Rocket
     player1.y = 150;
 
+    // Stardust
     star1.a = 960;
     star1.b = Math.floor(Math.random() * 430);
 
+    // Falling meteors
     meteorFall1.a = Math.floor(Math.random() * 960);
     meteorFall1.b = 0;
 
+    // Donut Lives
     donut1.a = 960;
     donut1.b = Math.floor(Math.random() * 430);
 
+    // UFO 1
     ufo1.p = 960;
     ufo1.q = Math.floor(Math.random() * 430);
 
+    // UFO 2
     ufo2.p = 960;
     ufo2.q = Math.floor(Math.random() * 430);
+
+    // UFO 3
+    ufo3.p = 960;
+    ufo3.q = Math.floor(Math.random() * 430);
+
+    // UFO 4
+    ufo4.p = 960;
+    ufo4.q = Math.floor(Math.random() * 430);
   }
+
+
+  // Set intervals for sprite creation
+  function setSpriteIntervals() {
+    // Stardust
+    starInterval = setInterval(function () {
+      showStar = true;
+    },
+    Math.floor(Math.random() * 5000) + 1500);
+
+    // Falling meteors
+    fireInterval = setInterval(function () {
+      showFire = true;
+    },
+    Math.floor(Math.random() * 9000) + 4500);
+
+    // Donut lives
+    lifeInterval = setInterval(function () {
+      showLife = true;
+    },
+    Math.floor(Math.random() * 20000) + 15000);
+
+    // UFO 1
+    ufoInterval1 = setInterval(function () {
+      showUFO1 = true;
+    },
+    Math.floor(Math.random() * 8000) + 5000);
+
+    // UFO 2
+    ufoInterval2 = setInterval(function () {
+      showUFO2 = true;
+    },
+    Math.floor(Math.random() * 8000) + 7500);
+    
+    // UFO 3
+    ufoInterval3 = setInterval(function () {
+      showUFO3 = true;
+    },
+    Math.floor(Math.random() * 16000) + 50000);
+
+    // UFO 4
+    ufoInterval4 = setInterval(function () {
+      showUFO4 = true;
+    },
+    Math.floor(Math.random() * 160000) + 150000);
+  }
+
+  // Clear intervals for generating sprites
+  function resetSpriteIntervals() {
+    clearInterval(starInterval);
+    clearInterval(fireInterval);
+    clearInterval(lifeInterval);
+    clearInterval(ufoInterval1);
+    clearInterval(ufoInterval2);
+    clearInterval(ufoInterval3);
+    clearInterval(ufoInterval4);
+  }
+
+
+  // Event listener for 'START' button
+  startButton.addEventListener("click", () => {
+    hideStart();
+    resetStats();
+    resetSprites();
+
+    // Start game loop
+    loop = true;
+
+    // Start sprite-generation intervals
+    setSpriteIntervals();
+    
+    // Begin drawing on game canvas
+    draw();
+  });
+
+  // Event listener for 'HOW TO PLAY' button
+  directionsButton.addEventListener("click", () => {
+    toggleDirections();
+  });
+
+  // Event listener to CLOSE 'HOW TO PLAY' PAGE
+  closeDirections.addEventListener("click", () => {
+    toggleDirections();
+  });
+
+  // Event listener for 'CREDITS' button
+  creditsButton.addEventListener("click", () => {
+    toggleCredits();
+  });
+
+  // Event listener to CLOSE 'CREDITS' PAGE
+  closeCredits.addEventListener("click", () => {
+    toggleCredits();
+  });
+
+  // Event listener for RESTART button on game page
+  restartButton.addEventListener("click", () => {
+    
+    // Stop game loop
+    loop = false;
+    
+    // Reset sprite-generation intervals
+    resetSpriteIntervals();
+    
+    // Hide restart button
+    hideRestart();
+    
+    // Reset game stats and sprite positions
+    resetStats();
+    resetSprites();
+    
+    // Display Start Page
+    startPage();
+  });
+
+  
+  //-------------------//
+  //  DRAW ON CANVAS   //
+  //  DURING GAMEPLAY  // 
+  //-------------------//
 
   // Redraw backdrop to simulate flying
   function drawBackdrop() {
@@ -760,95 +928,6 @@ window.onload = function () {
       gameOver();
     }
   }
-
-
-  // Event listener for 'START' button
-  startButton.addEventListener("click", () => {
-    hideStart();
-    resetStats();
-    resetSprites();
-
-    // Start game loop
-    loop = true;
-
-    // Set intervals for sprite creation [ this needs revision ]
-    starInterval = setInterval(function () {
-      showStar = true;
-    },
-    Math.floor(Math.random() * 5000) + 1500);
-
-    fireInterval = setInterval(function () {
-      showFire = true;
-    },
-    Math.floor(Math.random() * 9000) + 4500);
-
-    lifeInterval = setInterval(function () {
-      showLife = true;
-    },
-    Math.floor(Math.random() * 20000) + 15000);
-
-    ufoInterval1 = setInterval(function () {
-      showUFO1 = true;
-    },
-    Math.floor(Math.random() * 8000) + 5000);
-
-    ufoInterval2 = setInterval(function () {
-      showUFO2 = true;
-    },
-    Math.floor(Math.random() * 8000) + 7500);
-    
-    ufoInterval3 = setInterval(function () {
-      showUFO3 = true;
-    },
-    Math.floor(Math.random() * 16000) + 50000);
-
-    ufoInterval4 = setInterval(function () {
-      showUFO4 = true;
-    },
-    Math.floor(Math.random() * 160000) + 150000);
-    
-    // Begin drawing on game canvas
-    draw();
-  });
-
-  // Event listener for 'Directions' button
-  directionsButton.addEventListener("click", () => {
-    toggleDirections();
-  });
-
-  // Event listener for 'Close' button
-  closeDirections.addEventListener("click", () => {
-    toggleDirections();
-  });
-
-  // Event listener for 'Credits' button
-  creditsButton.addEventListener("click", () => {
-    toggleCredits();
-  });
-
-  // Event listener for 'X' button on Credits page
-  closeCredits.addEventListener("click", () => {
-    toggleCredits();
-  });
-
-  // Event listener for Restart arrow button on game page
-  restartButton.addEventListener("click", () => {
-    loop = false;
-    hideRestart();
-    resetStats();
-    resetSprites();
-    startPage();
-  });
-
-  // Event listener for fire button on mobile game controls
-  fireButton.addEventListener("click", () => {
-      didFire = true;
-  });
-
-  // Event listener for right fire button on legacy mobile game controls
-  // fireButtonR.addEventListener("click", () => {
-  //     didFire = true;
-  // });
 
   // Call function to load game
   loadGame();
