@@ -65,10 +65,7 @@ window.onload = function () {
 
   // Track X - coordinate of background image
   // Increase value per frame to simulate flying
-  var j;
-
-  // X - coordinate for rocket placement
-  var x = 375;
+  var bgX;
 
   // Track time passed
   var t = Date.now();
@@ -87,32 +84,20 @@ window.onload = function () {
   var fire;
 
   // Rocket position used to calculate meteor launch coordinates
-  var firex = x + 80;
+  var firex = 455;
   var firey;
 
-  // Boolean value tracking whether meteor was launched 
-  var didFire;
-
-  // Boolean values controlling visibility of game sprites
-  var showStar;
-  var showLife;
-  var showFire;
-  var showUFO1;
-  var showUFO2;
-  var showUFO3;
-  var showUFO4;
 
   // Randomized intervals to set boolean values above
-  var starInterval;
-  var fireInterval;
-  var lifeInterval;
-  var ufoInterval1;
-  var ufoInterval2;
-  var ufoInterval3;
-  var ufoInterval4;
+  let starInterval1;
+  let starInterval2;
+  let meteorInterval;
+  let donutInterval;
+  let ufoInterval1;
+  let ufoInterval2;
+  let ufoInterval3;
+  let ufoInterval4;
 
-  const intervals = [starInterval, fireInterval, lifeInterval, 
-    ufoInterval1, ufoInterval2, ufoInterval3, ufoInterval4];
 
   // Array of game images
   var imagelist = [startPic, backdrop, rocketpic, ufopic1, ufopic2, donutpic,
@@ -153,33 +138,72 @@ window.onload = function () {
       }
     }
   }
-  const player1 = new rocketPlayer(rocketpic, x);
+  const player1 = new rocketPlayer(rocketpic, 375, 200);
+
+
+  // Enemy UFO Class
+  class enemyUFO {
+    constructor(ufo, x, y, showUFO) {
+      this.ufo = ufo;
+      this.x = x;
+      this.y = y;
+      this.showUFO = showUFO;
+    }
+
+    // Draw Enemy UFO
+    drawUFO = function(rocket) {
+      context.beginPath();
+      context.drawImage(this.ufo, this.x, this.y, 50, 50);
+
+      if (this.x > -50) {
+        this.x -= (1.5 * speed * timePassed);
+
+
+        if (this.x <= rocket.x+100 && this.x >= rocket.x && this.y >= rocket.y-50 && this.y <= rocket.y+50) {
+          lives -= 1;
+          this.x = Math.floor(Math.random() * 430) + 960;
+          this.y = Math.floor(Math.random() * 430);
+          this.showUFO = false;
+        }
+      }
+
+      else if (this.x <= -50) {
+        this.x = Math.floor(Math.random() * 430) + 960;
+        this.y = Math.floor(Math.random() * 430);
+        this.showUFO = false;
+      }
+    }
+  }
+  const ufo1 = new enemyUFO(ufopic1, 960, Math.floor(Math.random() * 430), false);
+  const ufo2 = new enemyUFO(ufopic2, 960, Math.floor(Math.random() * 430), false);
+  const ufo3 = new enemyUFO(ufopic1, 960, Math.floor(Math.random() * 430), false);
+  const ufo4 = new enemyUFO(ufopic2, 960, Math.floor(Math.random() * 430), false);
 
 
   // class constructor for stardust
   class starDust {
-    constructor(star, a, b, w) {
+    constructor(star, x, y, showStar) {
       this.star = star;
-      this.a = a;
-      this.b = b;
-      this.w = w;
-
+      this.x = x;
+      this.y = y;
+      this.showStar = showStar;
     }
-
+ 
     // Draw stars to collect
-    drawStar = function(rocket) {
+    drawStar = function(rocket, ...ufoList) {
       context.beginPath();
-      context.drawImage(this.star, this.a, this.b, this.w, 55);
+      context.drawImage(this.star, this.x, this.y, 55, 55);
 
-      if (this.a > -55) {
-        this.a -= (speed * timePassed);
+      if (this.x > -55) {
+        this.x -= (speed * timePassed);
 
-        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
-          this.a = 1200;
-          this.b = Math.floor(Math.random() * 400);
+        // If rocket collides with stardust
+        if (this.x <= rocket.x+100 && this.x >= rocket.x && this.y >= rocket.y-55 && this.y <= rocket.y+50) {
+          this.x = Math.floor(Math.random() * 430) + 960;
+          this.y = Math.floor(Math.random() * 400);
 
+          this.showStar = false;
           score += 1;
-          showStar = false;
 
           if (score > 0 && score % 30 === 0) {
             fire += 1;
@@ -189,176 +213,145 @@ window.onload = function () {
             lives += 1;
           }
         }
-      } else if (this.a <= -55) {
-        this.a = 1200;
-        this.b = Math.floor(Math.random() * 400);
+        
+        // Iterate over UFO objects to check if one collides with stardust
+        for(let ufo of ufoList) {
+          if (this.x >= ufo.x-55 && this.x<= ufo.x-5 && this.y >= ufo.y-55 && this.y <= ufo.y+50) {
+            this.x = Math.floor(Math.random() * 430) + 960;
+            this.y = Math.floor(Math.random() * 400);
+  
+            this.showStar = false;
+            break;
+          }
+        }
+      }
+        // If stardust reaches x = 0 on canvas
+      else if (this.x <= -55) {
+        this.x = Math.floor(Math.random() * 430) + 960;
+        this.y = Math.floor(Math.random() * 400);
 
-        showStar = false;
+        this.showStar = false;
       }
     }
   }
-  const star1 = new starDust(starpic, 960 , Math.floor(Math.random() * 400), 55);
+  const star1 = new starDust(starpic, 960 , Math.floor(Math.random() * 400), false);
+  const star2 = new starDust(starpic, 960 , Math.floor(Math.random() * 400), false);
 
 
   // Class constructor for extra life donut
   class donutLife {
-    constructor(donut, a, b, w, h) {
+    constructor(donut, x, y, showDonut) {
       this.donut = donut;
-      this.a = a;
-      this.b = b;
-      this.w = w;
-      this.h = h;
+      this.x = x;
+      this.y = y;
+      this.showDonut = showDonut;
     }
 
     // Draw extra life donut
     drawDonut = function(rocket) {
       context.beginPath();
-      context.drawImage(this.donut, this.a, this.b, this.w, this.h);
+      context.drawImage(this.donut, this.x, this.y, 50, 55);
 
-      if (this.a > -50) {
-        this.a -= (speed * timePassed);
+      if (this.x > -50) {
+        this.x -= (speed * timePassed);
 
 
-        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-55 && this.b <= rocket.y+50) {
-          this.a = 960;
-          this.b = Math.floor(Math.random() * 400);
+        if (this.x <= rocket.x+100 && this.x >= rocket.x && this.y >= rocket.y-55 && this.y <= rocket.y+50) {
+          this.x = Math.floor(Math.random() * 430) + 960;
+          this.y = Math.floor(Math.random() * 400);
 
           lives += 1;
-          showLife = false;
+          this.showDonut = false;
           }
         }
 
-      else if (this.a <= -50) {
-        this.a = 960;
-        this.b = Math.floor(Math.random() * 400);
+      else if (this.x <= -50) {
+        this.x = Math.floor(Math.random() * 430) + 960;
+        this.y = Math.floor(Math.random() * 400);
 
-        showLife = false;
+        this.showDonut = false;
       }
     }
   }
-  const donut1 = new donutLife(donutpic, 960 , Math.floor(Math.random() * 400), 50, 55);
+  const donut1 = new donutLife(donutpic, 960 , Math.floor(Math.random() * 400), false);
 
 
   // Falling Meteor Class
   class meteorFall {
-    constructor(meteorFall, a, b, w, h) {
+    constructor(meteorFall, x, y, showMeteor) {
       this.meteorFall = meteorFall;
-      this.a = a;
-      this.b = b;
-      this.w = w;
-      this.h = h;
+      this.x = x;
+      this.y = y;
+      this.showMeteor = showMeteor;
     }
 
     // Draw falling meteor to collect
     drawMeteor = function(rocket) {
       context.beginPath();
-      context.drawImage(this.meteorFall, this.a, this.b, this.w, this.h);
+      context.drawImage(this.meteorFall, this.x, this.y, 33, 35);
 
-      if (this.a > -33) {
-        this.a -= (1.5* speed * timePassed);
-        this.b += (0.5 * speed * timePassed);
+      if (this.x > -33) {
+        this.x -= (1.5* speed * timePassed);
+        this.y += (0.5 * speed * timePassed);
 
-        if (this.a <= rocket.x+100 && this.a >= rocket.x && this.b >= rocket.y-35 && this.b <= rocket.y+50) {
-          this.a = Math.floor(Math.random() * 400) + 560;
-          this.b = 0;
+        if (this.x <= rocket.x+100 && this.x >= rocket.x && this.y >= rocket.y-35 && this.y <= rocket.y+50) {
+          this.x = Math.floor(Math.random() * 400) + 560;
+          this.y = 0;
 
           fire += 1;
-          showFire = false;
+          this.showMeteor = false;
         }
       }
 
-      else if (this.a < - 33 || this.b >= 480) {
-        this.a = Math.floor(Math.random() * 400) + 560;
-        this.b = 0;
+      else if (this.x < - 33 || this.y >= 480) {
+        this.x = Math.floor(Math.random() * 400) + 560;
+        this.y = 0;
 
-        showFire = false;
+        this.showMeteor = false;
       }
     }
   }
-  const meteorFall1 = new meteorFall(meteorfallpic, Math.floor(Math.random() * 400) + 560, 0, 33, 35);
+  const meteorFall1 = new meteorFall(meteorfallpic, Math.floor(Math.random() * 400) + 560, 0, false);
 
 
   // Draw meteor when launched
   class meteorFire {
-    constructor(meteorFire, a, b, w, h) {
+    constructor(meteorFire, x, y, didFire) {
       this.meteorFire = meteorFire;
-      this.a = a;
-      this.b = b;
-      this.w = w;
-      this.h = h;
+      this.x = x;
+      this.y = y;
+      this.didFire = didFire;
     }
 
     // Launch meteor
-    launchMeteor = function(rocket) {
+    launchMeteor = function(rocket, ...ufoList) {
       firey = rocket.y + 25;
   
       context.beginPath();
-      context.drawImage(this.meteorFire, firex, firey, this.w, this.h);
+      context.drawImage(this.meteorFire, firex, firey, 50, 25);
   
       if (firex >= 960) {
         firex = rocket.x + 125;
         fire -= 1;
-        didFire = false;
-      }
-  
-      else if (firex + 50 >= ufo1.p && firex <= ufo1.p + 50 && firey + 25 >= ufo1.q && firey <= ufo1.q + 50) {
-        ufo1.p = 960;
-        ufo1.q = Math.floor(Math.random() * 430);
-        firex = rocket.x + 110;
-        fire -= 1;
-        didFire = false;
-      }
-  
-      else if (firex + 50 >= ufo2.p && firex <= ufo2.p + 50 && firey + 25 >= ufo2.q && firey <= ufo2.q + 50) {
-        ufo2.p = 960;
-        ufo2.q = Math.floor(Math.random() * 430);
-        firex = rocket.x + 110;
-        fire -= 1;
-        didFire = false;
+        this.didFire = false;
       }
   
       else {
         firex += (5 * speed * timePassed);
       }
-    }
-  }
-  const meteorFire1 = new meteorFire(meteorfirepic, 960 , Math.floor(Math.random() * 430), 50, 25);
 
-
-  // Enemy UFO Class
-  class enemyUFO {
-    constructor(ufo, p, q) {
-      this.ufo = ufo;
-      this.p = p;
-      this.q = q;
-    }
-
-    // Draw Enemy UFO
-    drawUFO = function(rocket) {
-      context.beginPath();
-      context.drawImage(this.ufo, this.p, this.q, 50, 50);
-
-      if (this.p > -50) {
-        this.p -= (1.5 * speed * timePassed);
-
-
-        if (this.p <= rocket.x+100 && this.p >= rocket.x && this.q >= rocket.y-50 && this.q <= rocket.y+50) {
-          lives -= 1;
-          this.p = 1000;
-          this.q = Math.floor(Math.random() * 430);
+      for (let ufo of ufoList) {
+        if (firex + 50 >= ufo.x && firex <= ufo.x + 50 && firey + 25 >= ufo.y && firey <= ufo.y + 50) {
+          ufo.x = Math.floor(Math.random() * 960) + 960;
+          ufo.y = Math.floor(Math.random() * 430);
+          firex = rocket.x + 110;
+          fire -= 1;
+          this.didFire = false;
         }
       }
-
-      else if (this.p <= -50) {
-        this.p = 1000;
-        this.q = Math.floor(Math.random() * 430);
-      }
     }
   }
-  const ufo1 = new enemyUFO(ufopic1, 960, Math.floor(Math.random() * 430));
-  const ufo2 = new enemyUFO(ufopic2, 960, Math.floor(Math.random() * 430));
-  const ufo3 = new enemyUFO(ufopic1, 960, Math.floor(Math.random() * 430));
-  const ufo4 = new enemyUFO(ufopic2, 960, Math.floor(Math.random() * 430));
+  const meteorFire1 = new meteorFire(meteorfirepic, 960 , Math.floor(Math.random() * 430), false);
 
 
   //------------------//
@@ -380,7 +373,7 @@ window.onload = function () {
 
     // FIRE BUTTON
     if (fire > 0 && event.code === 'Space') {
-      didFire = true;
+      meteorFire1.didFire = true;
     }
 
     // START GAME
@@ -388,18 +381,20 @@ window.onload = function () {
       hideStart();
       resetStats();
       resetSprites();
-      setSpriteIntervals();
       loop = true;
+      setSpriteIntervals(loop);
+      context.clearRect(0, 0, 960, 480);
       draw();
     }
 
-    // RESTART GAME
+    // RESET GAME
     else if (event.code === "Enter" && loop === true) {
       loop = false;
       hideRestart();
+      setSpriteIntervals(loop);
       resetStats();
       resetSprites();
-      resetSpriteIntervals();
+      context.clearRect(0, 0, 960, 480);
       startPage();
     }
   }
@@ -461,7 +456,7 @@ window.onload = function () {
 
   // Event listener for fire button on mobile game controls
   fireButton.addEventListener("click", () => {
-      didFire = true;
+      meteorFire1.didFire = true;
   });
 
 
@@ -605,104 +600,131 @@ window.onload = function () {
     speed = 100;
     fire = 1;
     dir = 0;
-    j = 0;
+    bgX = 0;
   }
 
   // Reset sprite coordinates to game start values
   function resetSprites() {
     // Rocket
-    player1.y = 150;
+    player1.y = 200;
 
-    // Stardust
-    star1.a = 960;
-    star1.b = Math.floor(Math.random() * 430);
+    // Stardust1
+    star1.x = 960;
+    star1.y = Math.floor(Math.random() * 430);
+    star1.showStar = false;
+
+    // Stardust2
+    star2.x = 960;
+    star2.y = Math.floor(Math.random() * 430);
+    star2.showStar = false;
 
     // Falling meteors
-    meteorFall1.a = Math.floor(Math.random() * 960);
-    meteorFall1.b = 0;
+    meteorFall1.x = Math.floor(Math.random() * 960);
+    meteorFall1.y = 0;
+    meteorFall1.showMeteor = false;
 
     // Donut Lives
-    donut1.a = 960;
-    donut1.b = Math.floor(Math.random() * 430);
+    donut1.x = 960;
+    donut1.y = Math.floor(Math.random() * 430);
+    donut1.showDonut = false;
 
     // UFO 1
-    ufo1.p = 960;
-    ufo1.q = Math.floor(Math.random() * 430);
+    ufo1.x = 960;
+    ufo1.y = Math.floor(Math.random() * 430);
+    ufo1.showUFO = false;
 
     // UFO 2
-    ufo2.p = 960;
-    ufo2.q = Math.floor(Math.random() * 430);
+    ufo2.x = 960;
+    ufo2.y = Math.floor(Math.random() * 430);
+    ufo2.showUFO = false;
 
     // UFO 3
-    ufo3.p = 960;
-    ufo3.q = Math.floor(Math.random() * 430);
+    ufo3.x = 960;
+    ufo3.y = Math.floor(Math.random() * 430);
+    ufo3.showUFO = false;
 
     // UFO 4
-    ufo4.p = 960;
-    ufo4.q = Math.floor(Math.random() * 430);
+    ufo4.x = 960;
+    ufo4.y = Math.floor(Math.random() * 430);
+    ufo4.showUFO = false;
+
+    // Meteor Ammo
+    meteorFire1.didFire = false;
   }
 
 
   // Set intervals for sprite creation
-  function setSpriteIntervals() {
-    // Stardust
-    starInterval = setInterval(function () {
-      showStar = true;
-    },
-    Math.floor(Math.random() * 5000) + 1500);
-
-    // Falling meteors
-    fireInterval = setInterval(function () {
-      showFire = true;
-    },
-    Math.floor(Math.random() * 9000) + 4500);
-
-    // Donut lives
-    lifeInterval = setInterval(function () {
-      showLife = true;
-    },
-    Math.floor(Math.random() * 20000) + 15000);
-
-    // UFO 1
-    ufoInterval1 = setInterval(function () {
-      showUFO1 = true;
-    },
-    Math.floor(Math.random() * 8000) + 5000);
-
-    // UFO 2
-    ufoInterval2 = setInterval(function () {
-      showUFO2 = true;
-    },
-    Math.floor(Math.random() * 8000) + 7500);
+  function setSpriteIntervals(loop) {
+    // Clear Intervals if Game Loop is 'FALSE'
+    if (loop === false) {
+      clearInterval(starInterval1);
+      clearInterval(starInterval2);
+      clearInterval(meteorInterval);
+      clearInterval(donutInterval);
+      clearInterval(ufoInterval1);
+      clearInterval(ufoInterval2);
+      clearInterval(ufoInterval3);
+      clearInterval(ufoInterval4);
+    } 
     
-    // UFO 3
-    ufoInterval3 = setInterval(function () {
-      showUFO3 = true;
-    },
-    Math.floor(Math.random() * 16000) + 50000);
+    // Start Intervals if Game Loop is 'TRUE'
+    else {
+      // Stardust1
+      starInterval1 = setInterval(function () {
+        star1.showStar = true;
+      },
+      Math.floor(Math.random() * 1500) + 2000);
 
-    // UFO 4
-    ufoInterval4 = setInterval(function () {
-      showUFO4 = true;
-    },
-    Math.floor(Math.random() * 160000) + 150000);
+      // Stardust2
+      starInterval2 = setInterval(function () {
+        star2.showStar = true;
+      },
+      Math.floor(Math.random() * 3000) + 3000);
+
+      // Falling meteors
+      meteorInterval = setInterval(function () {
+        meteorFall1.showMeteor = true;
+      },
+      Math.floor(Math.random() * 9000) + 4500);
+
+      // Donut lives
+      donutInterval = setInterval(function () {
+        donut1.showDonut = true;
+      },
+      Math.floor(Math.random() * 20000) + 15000);
+
+      // UFO 1
+      ufoInterval1 = setInterval(function () {
+        ufo1.showUFO = true;
+      },
+      Math.floor(Math.random() * 8000) + 5000);
+
+      // UFO 2
+      ufoInterval2 = setInterval(function () {
+        ufo2.showUFO = true;
+      },
+      Math.floor(Math.random() * 8000) + 7500);
+
+      // UFO 3
+      ufoInterval3 = setInterval(function () {
+        ufo3.showUFO = true;
+      },
+      Math.floor(Math.random() * 16000) + 50000);
+
+      // UFO 4
+      ufoInterval4 = setInterval(function () {
+        ufo4.showUFO = true;
+      },
+      Math.floor(Math.random() * 160000) + 150000);
+    }
   }
-
-  // Clear intervals for generating sprites
-  function resetSpriteIntervals() {
-    clearInterval(starInterval);
-    clearInterval(fireInterval);
-    clearInterval(lifeInterval);
-    clearInterval(ufoInterval1);
-    clearInterval(ufoInterval2);
-    clearInterval(ufoInterval3);
-    clearInterval(ufoInterval4);
-  }
-
 
   // Event listener for 'START' button
   startButton.addEventListener("click", () => {
+    // Hide START menu
     hideStart();
+    
+    // Reset score & default coordinates
     resetStats();
     resetSprites();
 
@@ -710,8 +732,11 @@ window.onload = function () {
     loop = true;
 
     // Start sprite-generation intervals
-    setSpriteIntervals();
+    setSpriteIntervals(loop);
     
+    // Clear Canvas
+    context.clearRect(0, 0, 960, 480);
+
     // Begin drawing on game canvas
     draw();
   });
@@ -738,19 +763,22 @@ window.onload = function () {
 
   // Event listener for RESTART button on game page
   restartButton.addEventListener("click", () => {
-    
+
     // Stop game loop
     loop = false;
     
     // Reset sprite-generation intervals
-    resetSpriteIntervals();
-    
-    // Hide restart button
-    hideRestart();
+    setSpriteIntervals(loop);
     
     // Reset game stats and sprite positions
     resetStats();
     resetSprites();
+    
+    // Hide restart button
+    hideRestart();
+    
+    // Clear Canvas
+    context.clearRect(0, 0, 960, 480);
     
     // Display Start Page
     startPage();
@@ -765,16 +793,16 @@ window.onload = function () {
   // Redraw backdrop to simulate flying
   function drawBackdrop() {
     context.beginPath();
-    context.drawImage(backdrop, j, 0, 960, 480);
+    context.drawImage(backdrop, bgX, 0, 960, 480);
     context.beginPath();
-    context.drawImage(backdrop, j+959, 0, 960, 480);
+    context.drawImage(backdrop, bgX+959, 0, 960, 480);
 
-    if (j > -959) {
-      j -= (speed * timePassed);
+    if (bgX > -959) {
+      bgX -= (speed * timePassed);
     }
 
-    else if (j <= -959) {
-      j = 0;
+    else if (bgX <= -959) {
+      bgX = 0;
     }
   }
 
@@ -848,44 +876,47 @@ window.onload = function () {
     player1.drawRocket();
 
     // Interval-based conditions to draw sprites
-    if (showStar === true) {
-      star1.drawStar(player1);
+    if (star1.showStar === true) {
+      star1.drawStar(player1, ufo1, ufo2, ufo3, ufo4);
+    }
+
+    if (star2.showStar === true) {
+      star2.drawStar(player1, ufo1, ufo2, ufo3, ufo4);
     }
 
     // Draw enemy UFO 1
-    if (showUFO1 === true) {
+    if (ufo1.showUFO === true) {
       ufo1.drawUFO(player1);
     }
 
     // Draw enemy UFO 2 (alt colors)
-    if (showUFO2 === true) {
+    if (ufo2.showUFO === true) {
       ufo2.drawUFO(player1);
     }
 
     // Draw enemy UFO 3
-    if (showUFO3 === true) {
+    if (ufo3.showUFO === true) {
       ufo3.drawUFO(player1);
     }
 
     // Draw enemy UFO 4 (alt colors)
-    if (showUFO4 === true) {
+    if (ufo4.showUFO === true) {
       ufo4.drawUFO(player1);
     }
 
-
     // Draw falling meteor to collect as ammo
-    if (showFire === true) {
+    if (meteorFall1.showMeteor === true) {
       meteorFall1.drawMeteor(player1);
     }
 
     // Draw Mighty Life-Giving Donut
-    if (showLife === true) {
+    if (donut1.showDonut === true) {
       donut1.drawDonut(player1);
     }
 
     // Draw meteor launched at a target
-    if (didFire === true && fire > 0) {
-      meteorFire1.launchMeteor(player1);
+    if (meteorFire1.didFire === true && fire > 0) {
+      meteorFire1.launchMeteor(player1, ufo1, ufo2, ufo3, ufo4);
     }
 
     // Draw available ammo on screen
@@ -912,19 +943,13 @@ window.onload = function () {
 
     // Return to start page if 'RESTART' button clicked
     else if (lives > 0 && loop === false) {
-      for (u = 0; u < intervals.length; u++) {
-        clearInterval(intervals[u]);
-      }
-
+      // Show START Page
       startPage();
     }
 
-    // Display Game Over page if lives == 0
+    // Display Game Over page if lives === 0
     else if (lives <= 0) {
-      for (v = 0; v < intervals.length; v++) {
-        clearInterval(intervals[v]);
-      }
-
+      // Show GAME OVER Page
       gameOver();
     }
   }
