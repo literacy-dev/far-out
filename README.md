@@ -14,7 +14,7 @@ Brace yourself for a mysterious gravitational force that's increasing your speed
 
 **Hungry?** Grab a cosmic donut to sweeten your life meter!
 
-<a href="https://www.github.com/fossce/far-out/gh-pages">Play the game  on GitHub Pages</a>.
+<a href="https://www.github.com/fossce/far-out/gh-pages/index.html">Play the game  on GitHub Pages</a>.
 
 ## Credits
 - **Developed by Caroline R.**
