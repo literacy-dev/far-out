@@ -2,7 +2,7 @@
 
 A classic, 2D side-scrolling arcade game
 
-![Far Out! Start Page](https://github.com/reedcae/far-out/blob/main/images/FarOutStart1920.png)
+![Far Out! Start Page](https://github.com/reedcae/far-out/blob/main/images/farOutStartPage.png)
 
 ## How to Play
 
