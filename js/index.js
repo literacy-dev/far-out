@@ -468,29 +468,6 @@ window.onload = function () {
     context.lineWidth = 1.5;
     context.fillText(loadMsgText, 310, 430);
     context.strokeText(loadMsgText, 310, 430);
-    
-    // if (loadMsgText === "Loading...") {
-    //   loadMsgText = "Loading";
-    //   context.beginPath();
-    //   context.font = "40px Courier Bold";
-    //   context.fillStyle = "yellow";
-    //   context.strokeStyle = "deepskyblue";
-    //   context.lineWidth = 1.5;
-    //   context.fillText(loadMsgText, 310, 430);
-    //   context.strokeText(loadMsgText, 310, 430);
-    //   return loadMsgText
-
-    // } else {
-    //   loadMsgText += ".";
-    //   context.beginPath();
-    //   context.font = "40px Courier Bold";
-    //   context.fillStyle = "yellow";
-    //   context.strokeStyle = "deepskyblue";
-    //   context.lineWidth = 1.5;
-    //   context.fillText(loadMsgText, 310, 430);
-    //   context.strokeText(loadMsgText, 310, 430);
-    //   return loadMsgText
-    // }
   }
   
   // Load images, handle loading message interval
@@ -512,8 +489,6 @@ window.onload = function () {
       
       loadMsg(loadMsgText);
       
-      // loadMsgText = loadMsg(loadMsgText);
-
     }, 1000);
 
     // Increment imageLoad as each image loads successfully
