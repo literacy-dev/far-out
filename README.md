@@ -2,7 +2,7 @@
 
 A classic, 2D side-scrolling arcade game
 
-![Far Out! Start Page](https://github.com/fossce/far-out/blob/main/images/FarOutStart1920.png)
+![Far Out! Start Page](https://github.com/reedcae/far-out/blob/main/images/FarOutStart1920.png)
 
 ## How to Play
 
@@ -14,10 +14,10 @@ Brace yourself for a mysterious gravitational force that's increasing your speed
 
 **Hungry?** Grab a cosmic donut to sweeten your life meter!
 
-<a href="https://www.github.com/fossce/far-out/gh-pages">Play the game  on GitHub Pages</a>.
+<a href="https://www.github.com/reedcae/far-out/gh-pages">Play the game on GitHub Pages</a>.
 
 ## Credits
-- **Developed by Caroline R.**
+- **Developed by Caroline Reed (@reedcae)**
 
 - **Built with JavaScript, HTML5, and CSS3**
 
