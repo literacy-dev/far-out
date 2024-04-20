@@ -99,11 +99,6 @@ window.onload = function () {
   let ufoInterval4;
 
 
-  // Array of game images
-  var imagelist = [startPic, backdrop, rocketpic, ufopic1, ufopic2, donutpic,
-    starpic, meteorfallpic, gameOverPic];
-  
-
   //-------------------------------//
   //  CHARACTER & SPRITE CLASSES   //
   //-------------------------------//
@@ -464,15 +459,61 @@ window.onload = function () {
   //   LOAD GAME    //
   //----------------//
 
+  // Display loading message as images load
+  function loadMsg(loadMsgText) {
+    context.beginPath();
+    context.font = "40px Courier Bold";
+    context.fillStyle = "yellow";
+    context.strokeStyle = "deepskyblue";
+    context.lineWidth = 1.5;
+    context.fillText(loadMsgText, 310, 430);
+    context.strokeText(loadMsgText, 310, 430);
+    
+    // if (loadMsgText === "Loading...") {
+    //   loadMsgText = "Loading";
+    //   context.beginPath();
+    //   context.font = "40px Courier Bold";
+    //   context.fillStyle = "yellow";
+    //   context.strokeStyle = "deepskyblue";
+    //   context.lineWidth = 1.5;
+    //   context.fillText(loadMsgText, 310, 430);
+    //   context.strokeText(loadMsgText, 310, 430);
+    //   return loadMsgText
+
+    // } else {
+    //   loadMsgText += ".";
+    //   context.beginPath();
+    //   context.font = "40px Courier Bold";
+    //   context.fillStyle = "yellow";
+    //   context.strokeStyle = "deepskyblue";
+    //   context.lineWidth = 1.5;
+    //   context.fillText(loadMsgText, 310, 430);
+    //   context.strokeText(loadMsgText, 310, 430);
+    //   return loadMsgText
+    // }
+  }
+  
   // Load images, handle loading message interval
   function loadGame() {
     var imageload = 0;
     var loadMsgText = "Loading";
 
+    // Array of game images
+    var imagelist = [startPic, backdrop, rocketpic, ufopic1, ufopic2, donutpic,
+    starpic, meteorfallpic, gameOverPic];
+
     // Set interval to display animaged 'Loading...' message
     const loadingStart = setInterval(() => {
-      loadMsgText = loadMsg(loadMsgText);
+      if (loadMsgText === "Loading...") {
+        loadMsgText = "Loading";
+      } else {
+        loadMsgText += ".";
+      }
+      
       loadMsg(loadMsgText);
+      
+      // loadMsgText = loadMsg(loadMsgText);
+
     }, 1000);
 
     // Increment imageLoad as each image loads successfully
@@ -488,34 +529,8 @@ window.onload = function () {
       }
     }
   }
+
   
-  // Display loading message as images load
-  function loadMsg(loadMsgText) {
-    if (loadMsgText === "Loading...") {
-      loadMsgText = "Loading";
-      context.beginPath();
-      context.font = "50px Courier Bold";
-      context.fillStyle = "yellow";
-      context.strokeStyle = "deepskyblue";
-      context.lineWidth = 1.5;
-      context.fillText(loadMsgText, 310, 410);
-      context.strokeText(loadMsgText, 310, 410);
-      return loadMsgText
-
-    } else {
-      loadMsgText += ".";
-      context.beginPath();
-      context.font = "50px Courier Bold";
-      context.fillStyle = "yellow";
-      context.strokeStyle = "deepskyblue";
-      context.lineWidth = 1.5;
-      context.fillText(loadMsgText, 310, 410);
-      context.strokeText(loadMsgText, 310, 410);
-      return loadMsgText
-    }
-  }
-
-
   //----------------------//
   //  SHOW START MENU,    //
   //  START MENU BUTTONS, //
