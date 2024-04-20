@@ -8,7 +8,7 @@ window.onload = function () {
 
   // Start page
   const startPic = new Image();
-  startPic.src = "./images/farOutStart1920.png";
+  startPic.src = "./images/farOutStartPage.png";
 
   // Game over page
   const gameOverPic = new Image();
