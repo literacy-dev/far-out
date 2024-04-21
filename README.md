@@ -17,7 +17,7 @@ Brace yourself for a mysterious gravitational force that's increasing your speed
 <a href="https://literacy-dev.github.io/far-out/">Play on Github Pages</a>
 
 ## Credits
-- **Developed by Caroline Reed (@reedcae)**
+- **Developed by C. R. (@literacy-dev)**
 
 - **Built with JavaScript, HTML5, and CSS3**
 
